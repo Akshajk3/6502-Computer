@@ -1,5 +1,5 @@
 #include <WiFi.h>
-#include <WebServer.h>
+#include <ESPAsyncWebServer.h>
 
 const char ADDR[] = {32, 33, 25, 26, 27, 14, 12, 13, 23, 22, 1, 3, 21, 19, 18, 5}; 
 const char DATA[] = {17, 16, 4};
@@ -12,7 +12,9 @@ const char DATA[] = {17, 16, 4};
 const char* ssid = "Kanumuri-TP";
 const char* password = "9848016272";
 
-WebServer server(80);
+AsyncWebServer server(80);
+
+uint16_t eeprom_address = 0;
 
 void setup() {
   Serial.begin(115200);
@@ -77,6 +79,13 @@ void loop() {
   delay(2000);
 }
 
+void handleUpload(AsyncWebServerRequest* request, String filename, size_t index, uint8_t* data, size_t len, bool final) {
+  Serial.printf("Received %u bytes\n", len);
+  for (size_t i = 0; i < len; i++) {
+    writeEEPROM(eeprom_address++, data[i]);
+  }
+}
+
 void writeEEPROM(uint16_t addr, byte data) {
   for (int i = 0; i < sizeof(ADDR) / sizeof(ADDR[0]); i++) {
     digitalWrite(ADDR[i], (addr >> i) & 0x01);
@@ -97,18 +106,25 @@ void writeEEPROM(uint16_t addr, byte data) {
 byte readEEPROM(uint16_t addr) {
   byte data = 0;
 
-  for (int i = 0; i < 16; i++) {
+  for (int i = 0; i < sizeof(ADDR) / sizeof(ADDR[0]); i++) {
     digitalWrite(ADDR[i], (addr >> i) & 0x01);
   }
 
-  for (int i = 0; i < 8; i++) {
+  for (int i = 0; i < sizeof(DATA) / sizeof(DATA[0]); i++) {
+    pinMode(DATA[i], INPUT);
+  }
+
+  digitalWrite(OE, LOW);
+  digitalWrite(CE, LOW);
+
+  for (int i = 0; i < sizeof(DATA) / sizeof(DATA[0]); i++) {
     data |= (digitalRead(DATA[i]) << i);
   }
 
   digitalWrite(OE, HIGH);
   digitalWrite(CE, HIGH);
 
-  for (int i = 0; i < 8; i++) {
+  for (int i = 0; i < sizeof(DATA) / sizeof(DATA[0]); i++) {
     pinMode(DATA[i], OUTPUT);
   }
 
