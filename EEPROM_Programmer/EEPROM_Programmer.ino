@@ -24,8 +24,6 @@ void setup() {
   digitalWrite(WE, HIGH);
   digitalWrite(OE, HIGH);
 
-  clearEERPOM();
-
   Serial.println("EEPROM ready. Type a string to write starting at 0x00.");
 }
 
