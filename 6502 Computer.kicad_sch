@@ -4,6 +4,11 @@
 	(generator_version "10.0")
 	(uuid "f3789d0e-22ef-4b8b-9f36-1ff0ce5c40fc")
 	(paper "A4")
+	(title_block
+		(title "Debug Board")
+		(date "2026-10-16")
+		(rev "1")
+	)
 	(lib_symbols
 		(symbol "65xx-library:W65C816SxP"
 			(exclude_from_sim no)

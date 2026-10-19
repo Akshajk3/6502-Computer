@@ -254,7 +254,7 @@
       "internal_id": "",
       "mfg": "",
       "mpn": "",
-      "sch_revision": ""
+      "sch_revision": "1"
     },
     "layer_pairs": [],
     "layer_presets": [],
@@ -679,26 +679,26 @@
     "top_level_sheets": [
       {
         "filename": "6502 Computer.kicad_sch",
-        "name": "6502 Computer",
+        "name": "Debug Board",
         "uuid": "f3789d0e-22ef-4b8b-9f36-1ff0ce5c40fc"
       },
       {
-        "filename": "clock.kicad_sch",
-        "name": "Clock",
-        "uuid": "41eaa363-5bc3-4b07-8806-1197be1e6ac6"
+        "filename": "6502_computer.kicad_sch",
+        "name": "6502 Computer",
+        "uuid": "ef4216c3-c9a2-4936-bb51-8e11517db6c3"
       }
     ],
-    "used_designators": "#PWR3-13,Y1,SW1,U2,RESET1,J1-5,R1-4,C1",
+    "used_designators": "#PWR3-20,Y1,SW1,U2-5,RESET1,J1-5,R1-7,C1",
     "variants": []
   },
   "sheets": [
     [
       "f3789d0e-22ef-4b8b-9f36-1ff0ce5c40fc",
-      "6502 Computer"
+      "Debug Board"
     ],
     [
-      "41eaa363-5bc3-4b07-8806-1197be1e6ac6",
-      "Clock"
+      "ef4216c3-c9a2-4936-bb51-8e11517db6c3",
+      "6502 Computer"
     ]
   ],
   "text_variables": {},
